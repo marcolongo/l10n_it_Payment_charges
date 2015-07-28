@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrc_payment_charge_mrc_payment_charge,mrc_payment_charge.mrc_payment_charge,model_mrc_payment_charge_mrc_payment_charge,,1,0,0,0

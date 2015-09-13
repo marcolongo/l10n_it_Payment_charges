@@ -21,16 +21,16 @@ class order(models.Model):
         payment_term = invoice_part.property_payment_term and invoice_part.property_payment_term.id or False
         if invoice_part.property_payment_term.charge != 0:
         	payment_charge = invoice_part.property_payment_term.charge  or False
-        	order_line_id = obj_sale_order_line.create( cr, uid,{'name' : 'Costi d\'incasso','price_unit' : payment_charge , 'order_id' : 5, 'product_uom' : 1, 'state' : 'draft', 'type' : 'make_to_stock'})
+        	lista.insert(0,{'name' : 'Costi d\'incasso','price_unit' : payment_charge , 'product_uom' : 1, 'product_uom_qty' : 1,'state' : 'draft', 'type' : 'make_to_stock'})
+        #	order_line_id = obj_sale_order_line.create( cr, uid,{'name' : 'Costi d\'incasso','price_unit' : payment_charge , 'order_id' : 5, 'product_uom' : 1, 'state' : 'draft', 'type' : 'make_to_stock'})
         dedicated_salesman = part.user_id and part.user_id.id or uid
-        if  order_line_id:
-           	lista.insert(0,order_line_id)
         val = {
             'partner_invoice_id': addr['invoice'],
             'partner_shipping_id': addr['delivery'],
             'payment_term': payment_term,
             'user_id': dedicated_salesman,
             'order_line': lista
+            #'order_line': lista
         }
         delivery_onchange = self.onchange_delivery_id(cr, uid, ids, False, part.id, addr['delivery'], False,  context=context)
         val.update(delivery_onchange['value'])
